@@ -8,6 +8,9 @@ using UnityEngine;
 /// Represents a single room in your dungeon
 /// A room has an (i,j) integer position and a (di, dj) integer size in index coordinates
 /// </summary>
+/// 
+public delegate void Notify();
+
 public class Room : MonoBehaviour {
 
     public bool isStartRoom = false;
@@ -22,6 +25,7 @@ public class Room : MonoBehaviour {
     private bool _isInitialized = false;
     public static List<Room> allRooms { get; private set; } = new List<Room>();
 
+    public event Notify OnRoomEntered; 
 
     /// <summary>
     /// Get a list of all doors in a room. Do not use at Awake.
@@ -97,6 +101,7 @@ public class Room : MonoBehaviour {
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = GetWorldBounds();
         cameraFollow.SetBounds(cameraBounds);
+        OnRoomEntered?.Invoke();
     }
 
     /// <summary>

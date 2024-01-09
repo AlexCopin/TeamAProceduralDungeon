@@ -37,6 +37,13 @@ public class Enemy : MonoBehaviour
         DEAD = 3,
     }
 
+    public enum EnemyType
+    {
+        NORMAL,
+        RANGE,
+        TANK,
+        SPLITTER
+    }
 
     // Life and hit related attributes
     [Header("Life")]
@@ -63,6 +70,8 @@ public class Enemy : MonoBehaviour
 
     // Attack attributes
     [Header("Attack")]
+    [SerializeField]
+    EnemyType _enemyType;
     public GameObject attackPrefab = null;
     public GameObject attackSpawnPoint = null;
 	public float attackWarmUp = 0.5f;
@@ -104,7 +113,6 @@ public class Enemy : MonoBehaviour
 				_room = room;
 			}
 		}
-
 		SetState(STATE.IDLE);
     }
 
@@ -118,6 +126,16 @@ public class Enemy : MonoBehaviour
     {
         FixedUpdateMovement();
     }
+
+
+    //---------------------------------------DIFFICULTY------------------------------------------------
+    public void ApplyDifficulty(float DiffPercentage)
+    {
+        life += (int)Mathf.Floor(life * DiffPercentage);
+    }
+    //-------------------------------------------------------------------------------------------------
+
+
 
     /// <summary>
     /// Updates IA. Simply move toward player in straight line and attack when at range.
