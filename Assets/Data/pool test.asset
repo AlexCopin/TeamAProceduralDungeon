@@ -12,4 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2058765d4e25b574ca1b6fa6f3e73956, type: 3}
   m_Name: pool test
   m_EditorClassIdentifier: 
-  rooms: []
+  rooms:
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
+  - prefab: {fileID: 0}
+    doors: 
+    tags: 
