@@ -291,6 +291,7 @@ public class Enemy : MonoBehaviour
         OnHealthChanged?.Invoke(life);
         if (life <= 0)
         {
+            Death();
             SetState(STATE.DEAD);
         }
         else
@@ -302,6 +303,11 @@ public class Enemy : MonoBehaviour
             EndBlink();
             _blinkCoroutine = StartCoroutine(BlinkCoroutine());
         }
+    }
+
+    protected virtual void Death()
+    {
+        //Spawn FX???
     }
 
     /// <summary>

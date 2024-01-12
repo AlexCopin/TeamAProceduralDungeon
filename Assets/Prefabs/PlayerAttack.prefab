@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damages: 1
   hasInfiniteLifetime: 0
-  duration: 0.15
+  lifetime: 0.1
   knockbackSpeed: 3
   knockbackDuration: 0.5
   destroyOnHit:
