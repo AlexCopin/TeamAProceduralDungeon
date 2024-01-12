@@ -123,7 +123,7 @@ MonoBehaviour:
   attackDistance: 10
   attackCooldown: 0.5
   damage: 1
-  orientation: 1
+  orientation: 0
 --- !u!210 &551093227095024197
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   knockbackDuration: 0.5
   destroyOnHit:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &4441441070509986665
 GameObject:
   m_ObjectHideFlags: 0
