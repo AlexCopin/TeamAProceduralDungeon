@@ -25,10 +25,6 @@ public class DungeonGenerator : MonoBehaviour
             if (temp.GeneratePath(m_dungeonSize, Vector2.zero))
             {
                 _tree = temp;
-                foreach (KeyValuePair<Vector2, Node> pos in _tree.nodes)
-                {
-                    Debug.Log(pos.Key);
-                }
                 return;
             }
         }

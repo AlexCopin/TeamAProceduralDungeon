@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     public List<Transform> _spawnPoints;
 
+    private bool _isSpawned = false;
 
     // Dungeon location
     private Room _room = null;
@@ -54,6 +55,9 @@ public class EnemySpawner : MonoBehaviour
 
     void OnRoomActivation()
     {
+        if(_isSpawned )
+            return;
+
         foreach (SpawnerData data in _datas)
         {
             for (int i = 0; i < data._Count; ++i)
@@ -63,6 +67,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy.ApplyDifficulty(_difficulty);
             }
         }
+        _isSpawned = true;
     }
 
     void OnDrawGizmos()
