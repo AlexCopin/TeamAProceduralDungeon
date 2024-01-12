@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7212544524853502514}
   - component: {fileID: 8882690625043540003}
   m_Layer: 0
-  m_Name: MS Item
+  m_Name: Nahor Tooth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: feb52d2e01f956c4f842324cb77859d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 913c26a5b4a063041a33b00c64e132f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671bc0f48339924584a80e48746efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Description: 
   Health: 0
-  Damage: 0
-  FireRate: 0
-  MovementSpeed: 3
+  Damage: 1
+  FireRate: 1
+  MovementSpeed: 0
