@@ -1,7 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+
+
+
+
+public delegate void NotifyInt(int value);
 
 
 /// <summary>
@@ -54,6 +60,8 @@ public class Enemy : MonoBehaviour
     public float knockbackSpeed = 3.0f;
     public float knockbackDuration = 0.5f;
 
+    public event Action<int> OnHealthChanged;
+
     private float _lastHitTime = float.MinValue;
     private List<SpriteRenderer> _spriteRenderers = new List<SpriteRenderer>();
     private Coroutine _blinkCoroutine = null;
@@ -77,6 +85,7 @@ public class Enemy : MonoBehaviour
 	public float attackWarmUp = 0.5f;
 	public float attackDistance = 0.5f;
     public float attackCooldown = 1.0f;
+    public int damage;
     public ORIENTATION orientation = ORIENTATION.FREE;
 
     private float lastAttackTime = float.MinValue;
@@ -96,15 +105,15 @@ public class Enemy : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         GetComponentsInChildren<SpriteRenderer>(true, _spriteRenderers);
 		allEnemies.Add(this);
-
 	}
 
 	private void OnDestroy()
-	{
-		allEnemies.Remove(this);
+    {
+        OnHealthChanged = null;
+        allEnemies.Remove(this);
 	}
 
-	private void Start()
+    private void Start()
     {
 		foreach(Room room in Room.allRooms)
 		{
@@ -114,6 +123,10 @@ public class Enemy : MonoBehaviour
 			}
 		}
 		SetState(STATE.IDLE);
+        var healthSlider = GetComponentInChildren<HealthSlider>();
+        healthSlider.Init(life);
+        OnHealthChanged += healthSlider.HealthUpdated;
+
     }
 
     private void Update()
@@ -147,6 +160,8 @@ public class Enemy : MonoBehaviour
             Vector2 enemyToPlayer = (Player.Instance.transform.position - transform.position);
             if(enemyToPlayer.magnitude < attackDistance)
             {
+                _direction = enemyToPlayer.normalized;
+                transform.eulerAngles = new Vector3(0.0f, 0.0f, ComputeOrientationAngle(_direction));
                 Attack();
             } else
             {
@@ -162,7 +177,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Updates current state
     /// </summary>
-    private void UpdateState()
+    protected virtual void UpdateState()
     {
 		_stateTimer += Time.deltaTime;
 
@@ -254,7 +269,13 @@ public class Enemy : MonoBehaviour
 
         // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
-        GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
+        var go = GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
+        if(go.GetComponent<Projectile>())
+        {
+            Projectile proj = go.GetComponent<Projectile>();
+            proj.attack = GetComponent<Attack>();
+        }
+
     }
 
     /// <summary>
@@ -267,6 +288,7 @@ public class Enemy : MonoBehaviour
         _lastHitTime = Time.time;
 
         life -= 1;
+        OnHealthChanged?.Invoke(life);
         if (life <= 0)
         {
             SetState(STATE.DEAD);
