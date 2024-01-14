@@ -6,11 +6,9 @@ public class Tree
 {
     public Dictionary<Vector2, Node> nodes = new();
 
-    public bool GeneratePath(int lenght, Vector2 startingPoint)
+    public bool GeneratePath(int lenght, Node startingNode)
     {
-        Node lastNode = new();
-        lastNode.position = startingPoint;
-        nodes.Add(startingPoint, lastNode);
+        Node lastNode = startingNode;
 
         for (int i = 1; i < lenght; i++)
         {
@@ -58,7 +56,9 @@ public class Tree
                     {
                         Connection connection = new(lastNode, tempNode);
                         lastNode.rightConnection = connection;
+                        lastNode.doors.Add(DoorPos.Right);
                         tempNode.leftConnection = connection;
+                        tempNode.doors.Add(DoorPos.Left);
                         break;
                     }
 
@@ -66,7 +66,9 @@ public class Tree
                     {
                         Connection connection = new(lastNode, tempNode);
                         lastNode.leftConnection = connection;
+                        lastNode.doors.Add(DoorPos.Left);
                         tempNode.rightConnection = connection;
+                        tempNode.doors.Add(DoorPos.Right);
                         break;
                     }
 
@@ -74,7 +76,9 @@ public class Tree
                     {
                         Connection connection = new(lastNode, tempNode);
                         lastNode.upConnection = connection;
+                        lastNode.doors.Add(DoorPos.Up);
                         tempNode.downConnection = connection;
+                        tempNode.doors.Add(DoorPos.Down);
                         break;
                     }
 
@@ -82,7 +86,9 @@ public class Tree
                     {
                         Connection connection = new(lastNode, tempNode);
                         lastNode.downConnection = connection;
+                        lastNode.doors.Add(DoorPos.Down);
                         tempNode.upConnection = connection;
+                        tempNode.doors.Add(DoorPos.Up);
                         break;
                     }
 

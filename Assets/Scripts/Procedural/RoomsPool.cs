@@ -17,21 +17,6 @@ public class PoolRoom
     public List<DoorPos> doors;
     public List<RoomTag> tags;
 
-    public enum DoorPos
-    {
-        Up,
-        Down,
-        Right,
-        Left
-    }
-
-    public enum RoomTag
-    {
-        StartRoom,
-        EndRoom,
-        KeyRoom,
-    }
-
     public int DoorsNumber()
     {
         if(doors != null)
