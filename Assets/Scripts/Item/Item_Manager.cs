@@ -8,17 +8,23 @@ public class Item_Manager : MonoBehaviour
     public Item_Stats[] Item;
     public Button[] Slot;
     private Item_Stats ItemStats;
-    private int Health;
+    public int Health;
     private int Damage;
     private int MovementSpeed;
     private int FireRate;
 
     public Item_Selector ItemSelector;
 
+    public Player Player;
+
 
     // Start is called before the first frame update
     void Start()
     {
+
+        
+        Player.life = Health;
+
     }
 
     // Update is called once per frame
@@ -37,6 +43,7 @@ public class Item_Manager : MonoBehaviour
             {
                 ItemSelector.gameObject.SetActive(true);
                 ItemSelector.RandomChoice();
+                Time.timeScale = 0;
 
             }
 
@@ -44,26 +51,29 @@ public class Item_Manager : MonoBehaviour
 
     }
 
-    void UpdateItem()
+    void UpdateItem(int slot)
     {
-        Health = 0;
-        Damage = 0;
-        MovementSpeed = 0;
-        FireRate = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            if(Item[i] != null)
-            {
 
-                Health += Item[i].Health;
-                Damage += Item[i].Damage;
-                MovementSpeed += Item[i].MovementSpeed;
-                FireRate += Item[i].FireRate;
-            }
-            
+        if(Item[slot] != null)
+        {
+            Player.life -= Item[slot].Health;
 
         }
+
+
+        Item[slot] = ItemSelector.ItemSelected;
+
+        Player.life += Item[slot].Health;
+
+        Slot[slot].image.sprite = Item[slot].GetComponent<SpriteRenderer>().sprite;
+        Debug.Log("2");
+
+
+
+
     }
+
+
 
     public void AddItemToSlot(int slot)
     {
@@ -73,24 +83,25 @@ public class Item_Manager : MonoBehaviour
         
             if (slot == 1)
             {
-                Item[0] = ItemSelector.ItemSelected;
-                Slot[0].image.sprite = Item[0].GetComponent<SpriteRenderer>().sprite;
+                UpdateItem(0);
+                Debug.Log("1");
             }
             if (slot == 2)
             {
-                Item[1] = ItemSelector.ItemSelected;
-                Slot[1].image.sprite = Item[1].GetComponent<SpriteRenderer>().sprite;
+                UpdateItem(1);
+
             }
             if (slot == 3)
             {
-                Item[2] = ItemSelector.ItemSelected;
-                Slot[2].image.sprite = Item[2].GetComponent<SpriteRenderer>().sprite;
+                UpdateItem(2);
+
             }
             ItemSelector.ItemSelected = null;
             ItemSelector.gameObject.SetActive(false);
 
 
-            UpdateItem();
+            Time.timeScale = 1;
+
         }
 
 
