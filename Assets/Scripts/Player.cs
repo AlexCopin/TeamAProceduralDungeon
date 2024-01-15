@@ -73,6 +73,10 @@ public class Player : MonoBehaviour {
 
     private float lastAttackTime = float.MinValue;
 
+    //AddByMathis
+    public int Damage;
+
+
     // Input attributes
     [Header("Input")]
     [Range(0.0f, 1.0f)]
@@ -252,6 +256,11 @@ public class Player : MonoBehaviour {
         // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
         var go = GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
+
+        //AddByMathis
+        go.GetComponent<Attack>().damages = Damage;
+
+
         if (go.GetComponent<Projectile>())
         {
             go.layer = LayerMask.NameToLayer("PlayerAttack");

@@ -71,13 +71,20 @@ public class Item_Manager : MonoBehaviour
             for(int i =0; i< Item[slot].Health; i++)
             {
                 Player.Instance.life--;
+            }
 
+            for (int i = 0; i < Item[slot].MovementSpeed; i++)
+            {
+                Player.defaultMovement.speedMax--;
+            }
+            for (int i = 0; i < Item[slot].Damage; i++)
+            {
+                Player.Damage--;
             }
 
             if (Item[slot].RangedAttack)
             {
                 Player.attackPrefab = Playerattack;
-
             }
             if (Item[slot].SpikeImmune)
             {
@@ -100,6 +107,7 @@ public class Item_Manager : MonoBehaviour
         }
         for (int i = 0; i < Item[slot].Damage; i++)
         {
+            Player.Damage++;
 
         }
 

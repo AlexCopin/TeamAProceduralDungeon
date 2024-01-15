@@ -952,13 +952,19 @@ PrefabInstance:
     - target: {fileID: 7204945502808898985, guid: 02501860e67d01e429825d36c9a84b76,
         type: 3}
       propertyPath: ListItems.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7204945502808898985, guid: 02501860e67d01e429825d36c9a84b76,
         type: 3}
       propertyPath: ListItems.Array.data[10]
       value: 
       objectReference: {fileID: 8882690625043540003, guid: 0698739db0412204c9223985d6acf9ca,
+        type: 3}
+    - target: {fileID: 7204945502808898985, guid: 02501860e67d01e429825d36c9a84b76,
+        type: 3}
+      propertyPath: ListItems.Array.data[11]
+      value: 
+      objectReference: {fileID: 8882690625043540003, guid: d575debd27e62e14bb722f3069b8fdda,
         type: 3}
     - target: {fileID: 8953026311616004378, guid: 02501860e67d01e429825d36c9a84b76,
         type: 3}
@@ -1322,10 +1328,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3061304262239656674, guid: 3e99f044c283cd440bd8fee09c5090db,
         type: 3}
+      propertyPath: Damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3061304262239656674, guid: 3e99f044c283cd440bd8fee09c5090db,
+        type: 3}
       propertyPath: attackPrefab
       value: 
       objectReference: {fileID: 2185964762067344080, guid: fedea07bedcd0dc4b8633fc878bfdc59,
         type: 3}
+    - target: {fileID: 3061304262239656674, guid: 3e99f044c283cd440bd8fee09c5090db,
+        type: 3}
+      propertyPath: attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3061304262239656675, guid: 3e99f044c283cd440bd8fee09c5090db,
         type: 3}
       propertyPath: m_Name

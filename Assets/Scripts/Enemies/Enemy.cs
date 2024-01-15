@@ -286,7 +286,7 @@ public class Enemy : MonoBehaviour
             return;
         _lastHitTime = Time.time;
 
-        life -= 1;
+        life -= attack.damages;
         OnHealthChanged?.Invoke(life);
         if (life <= 0)
         {
