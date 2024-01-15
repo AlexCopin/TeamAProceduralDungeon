@@ -346,12 +346,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3896f1fa885784391095069cc83141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 3
   invincibilityDuration: 1
   invincibilityBlinkPeriod: 0.2
   hitLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   knockbackSpeed: 3
   knockbackDuration: 0.5
   defaultMovement:
@@ -362,7 +362,7 @@ MonoBehaviour:
     speedMax: 1
     acceleration: 8
     friction: 8
-  _enemyType: 0
+  _enemyType: 3
   attackPrefab: {fileID: 2185964762067344080, guid: 02db7d9e68915724da614f8b3986ae28,
     type: 3}
   attackSpawnPoint: {fileID: 4766563018300211270, guid: 0e47d516558300f4d9ce3dd8cd971652,
@@ -370,11 +370,11 @@ MonoBehaviour:
   attackWarmUp: 0.5
   attackDistance: 0.5
   attackCooldown: 1
-  damage: 0
+  damage: 1
   orientation: 0
   PrefabLittle: {fileID: 4766563019477658476, guid: 0e47d516558300f4d9ce3dd8cd971652,
     type: 3}
-  Count: 5
+  Count: 2
   offset: 0.5
   offsetRandom: 0.5
 --- !u!1001 &7293872867226411653

@@ -247,7 +247,11 @@ public class Player : MonoBehaviour {
 
         // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
-        GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
+        var go = GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
+        if (go.GetComponent<Projectile>())
+        {
+            go.layer = LayerMask.NameToLayer("PlayerAttack");
+        }
     }
 
     /// <summary>

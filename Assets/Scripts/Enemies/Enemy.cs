@@ -272,8 +272,7 @@ public class Enemy : MonoBehaviour
         var go = GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
         if(go.GetComponent<Projectile>())
         {
-            Projectile proj = go.GetComponent<Projectile>();
-            proj.attack = GetComponent<Attack>();
+            go.layer = LayerMask.NameToLayer("EnemyAttack");
         }
 
     }

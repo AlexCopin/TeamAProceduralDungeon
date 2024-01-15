@@ -131,36 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1196729822}
     m_Modifications:
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: life
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: damage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: offset
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: _enemyType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: offsetRandom
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8818380245483753042, guid: 029b26d0706e1ff4b841a3d7e3397064,
-        type: 3}
-      propertyPath: hitLayers.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 2662004724191952834, guid: 029b26d0706e1ff4b841a3d7e3397064,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1327,6 +1297,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3061304262239656674, guid: 3e99f044c283cd440bd8fee09c5090db,
+        type: 3}
+      propertyPath: attackPrefab
+      value: 
+      objectReference: {fileID: 2220794732679269056, guid: edef155851885d44390dab3ab737e888,
+        type: 3}
     - target: {fileID: 3061304262239656675, guid: 3e99f044c283cd440bd8fee09c5090db,
         type: 3}
       propertyPath: m_Name
