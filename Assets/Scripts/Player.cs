@@ -46,6 +46,9 @@ public class Player : MonoBehaviour {
     public float knockbackDuration = 0.5f;
     public Color deadColor = Color.gray;
 
+    //AddByMathis
+    public bool SpikeImmune;
+
     private float _lastHitTime = float.MinValue;
     private List<SpriteRenderer> _spriteRenderers = new List<SpriteRenderer>();
     private Coroutine _blinkCoroutine = null;

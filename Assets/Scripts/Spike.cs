@@ -7,13 +7,15 @@ using UnityEngine;
 /// </summary>
 public class Spike : MonoBehaviour
 {
-	private void OnTriggerStay2D(Collider2D collision)
+    
+    private void OnTriggerStay2D(Collider2D collision)
 	{
 		if (Player.Instance == null)
 			return;
 		if(collision.attachedRigidbody.gameObject != Player.Instance.gameObject)
 			return;
-
+        if (Player.Instance.SpikeImmune)
+            return;
 		Player.Instance.ApplyHit(null);
 	}
 

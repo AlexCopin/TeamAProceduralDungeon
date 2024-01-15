@@ -17,6 +17,9 @@ public class Item_Manager : MonoBehaviour
 
     public Player Player;
 
+    public GameObject Projectile;
+    public GameObject Playerattack;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +52,15 @@ public class Item_Manager : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Player.attackPrefab = Projectile;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Player.attackPrefab = Playerattack;
+        }
+
     }
 
     void UpdateItem(int slot)
@@ -56,16 +68,51 @@ public class Item_Manager : MonoBehaviour
 
         if(Item[slot] != null)
         {
-            Player.life -= Item[slot].Health;
-            
+            for(int i =0; i< Item[slot].Health; i++)
+            {
+                Player.Instance.life--;
+
+            }
+
+            if (Item[slot].RangedAttack)
+            {
+                Player.attackPrefab = Playerattack;
+
+            }
+            if (Item[slot].SpikeImmune)
+            {
+                Player.SpikeImmune = false;
+            }
+
+
 
         }
 
 
         Item[slot] = ItemSelector.ItemSelected;
+        for (int i = 0; i < Item[slot].Health; i++)
+        {
+            Player.Instance.life++;  
+        }
+        for (int i = 0; i < Item[slot].MovementSpeed; i++)
+        {
+            Player.defaultMovement.speedMax++;
+        }
+        for (int i = 0; i < Item[slot].Damage; i++)
+        {
 
-        Player.life += Item[slot].Health;
+        }
 
+
+        if (Item[slot].RangedAttack)
+        {
+            Player.attackPrefab = Projectile;
+
+        }
+        if (Item[slot].SpikeImmune)
+        {
+            Player.SpikeImmune = true;
+        }
         Slot[slot].image.sprite = Item[slot].GetComponent<SpriteRenderer>().sprite;
         Debug.Log("2");
 

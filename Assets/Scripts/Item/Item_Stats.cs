@@ -11,5 +11,8 @@ public class Item_Stats : MonoBehaviour
     public int Damage;
     public int FireRate;
     public int MovementSpeed;
-    
+
+    public bool RangedAttack;
+    public bool SpikeImmune;
+
 }
