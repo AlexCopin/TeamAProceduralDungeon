@@ -57,6 +57,7 @@ public class Item_Manager : MonoBehaviour
         if(Item[slot] != null)
         {
             Player.life -= Item[slot].Health;
+            
 
         }
 
