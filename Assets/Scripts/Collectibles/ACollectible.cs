@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public abstract class ACollectible : MonoBehaviour {
 
+    [SerializeField]
+    ParticleSystem _effectCollectible;
     /// <summary>
     /// Checks if collectible is correctly associated with a trigger hitbox
     /// </summary>
@@ -29,6 +31,8 @@ public abstract class ACollectible : MonoBehaviour {
             return;
 
         OnCollect();
+        if(_effectCollectible != null)  
+            Instantiate(_effectCollectible.transform, collision.transform);
         Destroy(gameObject);
     }
 }

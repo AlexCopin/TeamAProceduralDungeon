@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
     public float knockbackSpeed = 3.0f;
     public float knockbackDuration = 0.5f;
     public Color deadColor = Color.gray;
+    [SerializeField] ParticleSystem healthParticle;
 
     private float _lastHitTime = float.MinValue;
     private List<SpriteRenderer> _spriteRenderers = new List<SpriteRenderer>();
