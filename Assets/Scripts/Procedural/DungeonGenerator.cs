@@ -34,16 +34,18 @@ public class DungeonGenerator : MonoBehaviour
     void GenerateDungeon()
     {
         Tree temp = new();
-
         Node startingNode = new();
         startingNode.position = Vector2.zero;
-        startingNode.tags.Add(RoomTag.StartRoom);
+        //startingNode.tags.Add(RoomTag.StartRoom);
+        temp.nodes.Add(startingNode.position, startingNode);
 
         for (int i = 0; i < 4; i++)
         {
-            if (temp.GeneratePath(m_dungeonSize, startingNode))
+            //Base Path
+            if (temp.GeneratePath(m_dungeonSize, startingNode.position))
             {
                 _tree = temp;
+                Debug.Log(_tree);
                 return;
             }
         }
@@ -53,21 +55,25 @@ public class DungeonGenerator : MonoBehaviour
 
     void InstanciateDungeon()
     {
+        GameObject prevRoom = null;
+
         foreach(KeyValuePair< Vector2, Node > node in _tree.nodes)
         {
-            GameObject objectToInstantiate = GetPrefabOfType(node.Value);
+            GameObject objectToInstantiate = GetPrefabOfType(node.Value, prevRoom);
+            prevRoom = objectToInstantiate;
             if(objectToInstantiate == null)
             {
                 Debug.LogError("NoFittingRoomFound");
                 return;
             }
+            Debug.Log("passed");
             Instantiate(objectToInstantiate, node.Key * m_tileSize, objectToInstantiate.transform.rotation, transform);
         }
     }
 
-    GameObject GetPrefabOfType(Node node)
+    GameObject GetPrefabOfType(Node node, GameObject prevRoom)
     {
-        List<PoolRoom> validRooms = m_pool.rooms;
+        List<PoolRoom> validRooms = new(m_pool.rooms);
 
         foreach(RoomTag tag in node.tags)
         {
@@ -86,11 +92,19 @@ public class DungeonGenerator : MonoBehaviour
         {
             List<PoolRoom> temp = new(validRooms);
 
-            foreach (PoolRoom room in temp)
+            for (int i = 0; i < temp.Count; i++)
             {
-                if (!room.doors.Contains(pos))
+                if(temp[i].DoorsNumber() != node.doors.Count)
                 {
-                    validRooms.Remove(room);
+                    validRooms.Remove(temp[i]);
+                    continue;
+                }
+
+                if (!temp[i].doors.Contains(pos))
+                {
+                    validRooms.Remove(temp[i]);
+
+                    continue;
                 }
             }
         }
@@ -109,25 +123,22 @@ public class DungeonGenerator : MonoBehaviour
 
             default :
                 {
+                    if (prevRoom != null)
+                    {
+                        foreach (PoolRoom room in validRooms)
+                        {
+                            if (room.prefab == prevRoom)
+                            {
+                                validRooms.Remove(room);
+                                break;
+                            }
+                        }
+                    }
+
                     int index = Random.Range(0, validRooms.Count);
 
                     return validRooms[index].prefab;
-
                 }
         }
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        if(_tree != null)
-        {
-            foreach (KeyValuePair<Vector2, Node> pos in _tree.nodes)
-            {
-                Gizmos.DrawCube(pos.Key, Vector3.one);
-            }
-        }
-    }
-#endif
 }
