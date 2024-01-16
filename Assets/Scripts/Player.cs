@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,14 +38,13 @@ public class Player : MonoBehaviour {
 
     // Life and hit related attributes
     [Header("Life")]
-    public int life = 3;
+    public float life = 3;
     public float invincibilityDuration = 1.0f;
     public float invincibilityBlinkPeriod = 0.2f;
     public LayerMask hitLayers;
     public float knockbackSpeed = 3.0f;
     public float knockbackDuration = 0.5f;
     public Color deadColor = Color.gray;
-    [SerializeField] ParticleSystem healthParticle;
 
     //AddByMathis
     public bool SpikeImmune;
@@ -74,7 +73,11 @@ public class Player : MonoBehaviour {
     private float lastAttackTime = float.MinValue;
 
     //AddByMathis
-    public int Damage;
+    public float Damage;
+
+
+    public GameObject currentAttack = null;
+    public bool shootContinu = true;
 
 
     // Input attributes
@@ -157,8 +160,13 @@ public class Player : MonoBehaviour {
             } else {
                 _direction.Normalize();
             }
-            if(Input.GetButtonDown("Fire1")) {
+            if (Input.GetButtonDown("Fire1"))
+            {
                 Attack();
+            }
+            if(shootContinu && Input.GetButtonUp("Fire1"))
+            {
+                ReleaseAttack();
             }
         } else {
             _direction = Vector2.zero;
@@ -244,6 +252,10 @@ public class Player : MonoBehaviour {
         lastAttackTime = Time.time;
         SetState(STATE.ATTACKING);
     }
+    private void ReleaseAttack()
+    {
+        currentAttack.GetComponent<ParticleSystem>().Stop();
+    }
 
     /// <summary>
     /// Spawns the associated "attack" prefab on attackSpawnPoint.
@@ -255,16 +267,18 @@ public class Player : MonoBehaviour {
 
         // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
-        var go = GameObject.Instantiate(attackPrefab, spawnTransform.position, spawnTransform.rotation);
 
         //AddByMathis
         go.GetComponent<Attack>().damages = Damage;
 
 
         if (go.GetComponent<Projectile>())
+        var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
+        if (shootContinu)
         {
-            go.layer = LayerMask.NameToLayer("PlayerAttack");
+            currentAttack = go;
         }
+        go.layer = LayerMask.NameToLayer("PlayerAttack");
     }
 
     /// <summary>

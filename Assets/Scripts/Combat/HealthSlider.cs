@@ -20,7 +20,7 @@ public class HealthSlider : MonoBehaviour
         var Canvas = GetComponent<Canvas>();
         Canvas.worldCamera = Camera.main;
     }
-    public void Init(int maxHealth)
+    public void Init(float maxHealth)
     {
         m_FillerSlider.maxValue = maxHealth;
         m_FillerSlider.value = maxHealth;
@@ -29,7 +29,7 @@ public class HealthSlider : MonoBehaviour
         m_CurrentHealth = maxHealth;
     }
 
-    public void HealthUpdated(int value)
+    public void HealthUpdated(float value)
     {
         m_HealthSlider.value = value;
         m_CurrentHealth = value;

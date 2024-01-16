@@ -53,14 +53,15 @@ public class Enemy : MonoBehaviour
 
     // Life and hit related attributes
     [Header("Life")]
-    public int life = 3;
+    public float life = 3.0f;
     public float invincibilityDuration = 1.0f;
+    public float invincibilityTickDuration = 0.2f;
     public float invincibilityBlinkPeriod = 0.2f;
     public LayerMask hitLayers;
     public float knockbackSpeed = 3.0f;
     public float knockbackDuration = 0.5f;
 
-    public event Action<int> OnHealthChanged;
+    public event Action<float> OnHealthChanged;
 
     private float _lastHitTime = float.MinValue;
     private List<SpriteRenderer> _spriteRenderers = new List<SpriteRenderer>();
@@ -282,8 +283,16 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void ApplyHit(Attack attack)
     {
-        if (Time.time - _lastHitTime < invincibilityDuration)
-            return;
+        if(attack.attackType == AttackType.DIRECT)
+        {
+            if (Time.time - _lastHitTime < invincibilityDuration)
+                return;
+        }
+        else
+        {
+            if (Time.time - _lastHitTime < invincibilityTickDuration)
+                return;
+        }
         _lastHitTime = Time.time;
 
         life -= attack.damages;
@@ -386,6 +395,16 @@ public class Enemy : MonoBehaviour
         {
             // Collided with hitbox
             Attack attack = collision.gameObject.GetComponent<Attack>();
+            ApplyHit(attack);
+        }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if ((hitLayers & (1 << other.gameObject.layer)) == (1 << other.gameObject.layer))
+        {
+            // Collided with hitbox
+            Attack attack = other.gameObject.GetComponent<Attack>();
             ApplyHit(attack);
         }
     }
