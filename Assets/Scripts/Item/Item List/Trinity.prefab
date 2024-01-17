@@ -101,9 +101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671bc0f48339924584a80e48746efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  Name: Trinity
+  Description: '+1 Move Speed
+
+    +1 Attack Speed
+
+    +1 Health'
   Health: 1
   Damage: 0
   FireRate: 1
   MovementSpeed: 1
+  RangedAttack: 0
+  SpikeImmune: 0
