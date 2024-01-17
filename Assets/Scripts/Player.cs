@@ -270,7 +270,6 @@ public class Player : MonoBehaviour {
 
         var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
         //AddByMathis
-        var go = Instantiate(attackPrefab, attackSpawnPoint.transform);
         go.GetComponent<Attack>().damages = Damage;
 
 
