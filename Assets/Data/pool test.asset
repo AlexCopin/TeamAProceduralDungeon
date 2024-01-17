@@ -16,96 +16,124 @@ MonoBehaviour:
   - prefab: {fileID: 4167186206395494075, guid: a00b87f805b979b4a928a2faa8c97251,
       type: 3}
     doors: 00000000
-    tags: 
+    tags: 00000000
   - prefab: {fileID: 4167186206395494075, guid: 478c61cbb95170b4cb4e78e202827a4f,
       type: 3}
-    doors: 00000000
+    doors: 02000000
+    tags: 00000000
+  - prefab: {fileID: 4167186206395494075, guid: b73e8ccb7c5f29e4e9200a0e76ce5ee9,
+      type: 3}
+    doors: 03000000
+    tags: 00000000
+  - prefab: {fileID: 4167186206395494075, guid: 9083128873f15f6429be25ea258a2d3a,
+      type: 3}
+    doors: 01000000
+    tags: 00000000
+  - prefab: {fileID: 4167186206395494075, guid: db20aeb84b628734994f81a482646e0c,
+      type: 3}
+    doors: 01000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 9a7d563035ab9cd4687a5d5cbfa19cbe,
       type: 3}
-    doors: 0000000000000000
+    doors: 0100000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 8c1dbdb8af7a3094880e85ac8cddf810,
       type: 3}
-    doors: 0000000000000000
+    doors: 0200000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: b0f5ea9e0c95da148bef149d803c5c9d,
       type: 3}
-    doors: 0000000000000000
+    doors: 0200000000000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 5a7de59a2c8da124b98380d687cdf3fc,
       type: 3}
-    doors: 0000000000000000
+    doors: 0000000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 830b153327772284f8b149ff93e640ef,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: e26cbd46165eada458d40152958c50b9,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 32e45b67c247e574793fec02b28fe8af,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 030000000100000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: a4ccb980c4eca5b4080e6eaff3c3bd3b,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 030000000100000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 8b1256eafa841464c9b39f766616b123,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: ab55fde6c279fa94b9f68fc13cee8b8b,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: cb2e7c03dd9da4f4b9a15621977a3716,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000000000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 4ab28f319c1b6c54d9d402b98cf340c5,
       type: 3}
-    doors: 0000000000000000
+    doors: 0300000000000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: b15f5dc3ca18207489f431de08accea8,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 030000000000000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: e931b21f841db854b8a2ae3ae6b0f250,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 030000000000000002000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 2c4c048c822654b4a94a26c2db51fa52,
       type: 3}
-    doors: 0000000000000000
+    doors: 0000000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 55c37f04c43201041a2bee670f7112a7,
       type: 3}
-    doors: 
+    doors: 0000000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: cef78aac555af79449849b9d2dfc7a6f,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 000000000200000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 51aa7f2502bbd21449cf7d993e10ecbc,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 000000000200000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 07cb4d669af072c4b98813aa624db580,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 000000000300000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: e236b5acc73a6c84fbe9b7a306198fd2,
       type: 3}
-    doors: 000000000000000000000000
+    doors: 000000000300000001000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: 801d78aa393bd5a43b1b53ab7935e67f,
       type: 3}
-    doors: 00000000000000000000000000000000
+    doors: 00000000010000000200000003000000
     tags: 
   - prefab: {fileID: 4167186206395494075, guid: db20aeb84b628734994f81a482646e0c,
       type: 3}
-    doors: 00000000000000000000000000000000
+    doors: 00000000010000000200000003000000
     tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 238ff2c59f75fd540a1e35be936e19bf,
+      type: 3}
+    doors: 00000000
+    tags: 01000000
+  - prefab: {fileID: 4167186206395494075, guid: 9fc7904c7e2128a45b8764d1a980903f,
+      type: 3}
+    doors: 02000000
+    tags: 01000000
+  - prefab: {fileID: 4167186206395494075, guid: 4dc13ff1050e05241b350cf0cb33f248,
+      type: 3}
+    doors: 03000000
+    tags: 01000000
+  - prefab: {fileID: 4167186206395494075, guid: 6fa7062b938e62b4fade9e6572a1a13e,
+      type: 3}
+    doors: 01000000
+    tags: 01000000

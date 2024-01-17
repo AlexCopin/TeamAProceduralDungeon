@@ -31,8 +31,8 @@ public abstract class ACollectible : MonoBehaviour {
             return;
 
         OnCollect();
-        if(_effectCollectible != null)  
-            Instantiate(_effectCollectible.transform, collision.transform);
+        if(_effectCollectible != null) 
+            Instantiate(_effectCollectible.transform).transform.SetPositionAndRotation(transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

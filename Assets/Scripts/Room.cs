@@ -1,4 +1,5 @@
 ﻿using CreativeSpore.SuperTilemapEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -25,7 +26,9 @@ public class Room : MonoBehaviour {
     private bool _isInitialized = false;
     public static List<Room> allRooms { get; private set; } = new List<Room>();
 
-    public event Notify OnRoomEntered; 
+    bool _alreadyEntered;
+
+    public event Notify OnRoomEntered;
 
     /// <summary>
     /// Get a list of all doors in a room. Do not use at Awake.
@@ -101,7 +104,10 @@ public class Room : MonoBehaviour {
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = GetWorldBounds();
         cameraFollow.SetBounds(cameraBounds);
-        OnRoomEntered?.Invoke();
+        if(!_alreadyEntered)
+            OnRoomEntered?.Invoke();
+
+        _alreadyEntered = true;
     }
 
     /// <summary>

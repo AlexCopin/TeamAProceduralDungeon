@@ -6,9 +6,9 @@ public class Tree
 {
     public Dictionary<Vector2, Node> nodes = new();
 
-    public bool GeneratePath(int lenght, Node startingNode)
+    public bool GeneratePath(int lenght, Vector2 startingNodePos)
     {
-        Node lastNode = startingNode;
+        Vector2 lastNodePos = startingNodePos;
 
         for (int i = 1; i < lenght; i++)
         {
@@ -28,7 +28,7 @@ public class Tree
                 tempDir = directions[rand];
 
                 //Check if direction is occupied
-                if (nodes.ContainsKey(tempDir + lastNode.position))
+                if (nodes.ContainsKey(tempDir + lastNodePos))
                 {
                     directions.RemoveAt(rand);
                     continue;
@@ -47,16 +47,16 @@ public class Tree
             #endregion
 
             Node tempNode = new();
-            Vector2 newPos = newDir + lastNode.position;
+            Vector2 newPos = newDir + lastNodePos;
             tempNode.position = newPos;
 
             switch (newDir)
             {
                 case Vector2 v when v.Equals(Vector2.right):
                     {
-                        Connection connection = new(lastNode, tempNode);
-                        lastNode.rightConnection = connection;
-                        lastNode.doors.Add(DoorPos.Right);
+                        Connection connection = new(nodes[lastNodePos], tempNode);
+                        nodes[lastNodePos].rightConnection = connection;
+                        nodes[lastNodePos].doors.Add(DoorPos.Right);
                         tempNode.leftConnection = connection;
                         tempNode.doors.Add(DoorPos.Left);
                         break;
@@ -64,9 +64,9 @@ public class Tree
 
                 case Vector2 v when v.Equals(Vector2.left):
                     {
-                        Connection connection = new(lastNode, tempNode);
-                        lastNode.leftConnection = connection;
-                        lastNode.doors.Add(DoorPos.Left);
+                        Connection connection = new(nodes[lastNodePos], tempNode);
+                        nodes[lastNodePos].leftConnection = connection;
+                        nodes[lastNodePos].doors.Add(DoorPos.Left);
                         tempNode.rightConnection = connection;
                         tempNode.doors.Add(DoorPos.Right);
                         break;
@@ -74,9 +74,9 @@ public class Tree
 
                 case Vector2 v when v.Equals(Vector2.up):
                     {
-                        Connection connection = new(lastNode, tempNode);
-                        lastNode.upConnection = connection;
-                        lastNode.doors.Add(DoorPos.Up);
+                        Connection connection = new(nodes[lastNodePos], tempNode);
+                        nodes[lastNodePos].upConnection = connection;
+                        nodes[lastNodePos].doors.Add(DoorPos.Up);
                         tempNode.downConnection = connection;
                         tempNode.doors.Add(DoorPos.Down);
                         break;
@@ -84,9 +84,9 @@ public class Tree
 
                 case Vector2 v when v.Equals(Vector2.down):
                     {
-                        Connection connection = new(lastNode, tempNode);
-                        lastNode.downConnection = connection;
-                        lastNode.doors.Add(DoorPos.Down);
+                        Connection connection = new(nodes[lastNodePos], tempNode);
+                        nodes[lastNodePos].downConnection = connection;
+                        nodes[lastNodePos].doors.Add(DoorPos.Down);
                         tempNode.upConnection = connection;
                         tempNode.doors.Add(DoorPos.Up);
                         break;
@@ -99,7 +99,7 @@ public class Tree
             }
 
             nodes.Add(newPos, tempNode);
-            lastNode = tempNode;
+            lastNodePos = newPos;
         }
 
         return true;

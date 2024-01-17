@@ -7,9 +7,16 @@ using UnityEngine;
 /// Attack is an hitbox script that destroy itself after a given lifetime or when triggered.
 /// When hitting player or enemy, applies damages and knockback to hit entity. See Player and Enemy "OnTriggerEnter2D" method for more details.
 /// </summary>
+/// 
+public enum AttackType
+{
+    DIRECT,
+    TICK
+}
 public class Attack : MonoBehaviour {
 
-    public int damages = 1;
+    public AttackType attackType;
+    public float damages = 1;
 	public bool hasInfiniteLifetime = false;
 	[HideIf("hasInfiniteLifetime")]
     public float lifetime = 0.3f;
