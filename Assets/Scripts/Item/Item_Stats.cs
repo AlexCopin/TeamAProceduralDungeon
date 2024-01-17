@@ -5,6 +5,8 @@ using UnityEngine;
 public class Item_Stats : MonoBehaviour
 {
     public string Name;
+
+    [TextArea]
     public string Description;
 
     public int Health;

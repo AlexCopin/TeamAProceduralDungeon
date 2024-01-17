@@ -101,7 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671bc0f48339924584a80e48746efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Warmog
+  Description: +2 Health
   Health: 2
   Damage: 0
   FireRate: 0
   MovementSpeed: 0
+  RangedAttack: 0
+  SpikeImmune: 0

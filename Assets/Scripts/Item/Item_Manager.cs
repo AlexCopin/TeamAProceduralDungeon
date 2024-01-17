@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Item_Manager : MonoBehaviour
@@ -20,13 +21,14 @@ public class Item_Manager : MonoBehaviour
     public GameObject Projectile;
     public GameObject Playerattack;
 
+    public Image tooltip;
+
 
     // Start is called before the first frame update
     void Start()
     {
 
         
-        Player.life = Health;
 
     }
 
@@ -40,12 +42,12 @@ public class Item_Manager : MonoBehaviour
             Debug.Log("Space");
             if(ItemSelector.gameObject.activeInHierarchy)
             {
-                ItemSelector.RandomChoice();
+                ItemSelector.RandomChoice(false);
             }
             if (!ItemSelector.gameObject.activeInHierarchy)
             {
                 ItemSelector.gameObject.SetActive(true);
-                ItemSelector.RandomChoice();
+                ItemSelector.RandomChoice(false);
                 Time.timeScale = 0;
 
             }
@@ -122,6 +124,7 @@ public class Item_Manager : MonoBehaviour
             Player.SpikeImmune = true;
         }
         Slot[slot].image.sprite = Item[slot].GetComponent<SpriteRenderer>().sprite;
+        Slot[slot].gameObject.GetComponent<Item_Tooltip>().itemStats = Item[slot];
         Debug.Log("2");
 
 
@@ -164,5 +167,6 @@ public class Item_Manager : MonoBehaviour
 
     }
 
-
+    
+    
 }

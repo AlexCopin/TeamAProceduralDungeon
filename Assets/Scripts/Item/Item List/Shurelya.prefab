@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671bc0f48339924584a80e48746efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Shurelya
   Description: 
   Health: 0
   Damage: 0
