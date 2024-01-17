@@ -269,11 +269,11 @@ public class Player : MonoBehaviour {
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
 
         //AddByMathis
+        var go = Instantiate(attackPrefab, attackSpawnPoint.transform);
         go.GetComponent<Attack>().damages = Damage;
 
 
         if (go.GetComponent<Projectile>())
-        var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
         if (shootContinu)
         {
             currentAttack = go;
