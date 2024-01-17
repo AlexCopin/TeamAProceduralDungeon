@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3061304261199345294}
   - component: {fileID: 3061304261199345293}
   - component: {fileID: 7537233403150122978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3061304261252655526}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3061304262239656672}
   - component: {fileID: 3061304262239656674}
   - component: {fileID: 3061304262239656673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -231,11 +231,12 @@ MonoBehaviour:
     speedMax: 2
     acceleration: 12
     friction: 12
-  attackPrefab: {fileID: 2185964762067344080, guid: fedea07bedcd0dc4b8633fc878bfdc59,
+  attackPrefab: {fileID: 4380068197956741716, guid: 7aabb27c4f345bb4587eac2379c60201,
     type: 3}
   attackSpawnPoint: {fileID: 3061304261252655527}
-  attackCooldown: 0.3
-  orientation: 1
+  attackCooldown: 1
+  orientation: 0
+  Damage: 1
   currentAttack: {fileID: 0}
   shootContinu: 1
   controllerDeadZone: 0.3
@@ -261,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3061304262789139554}
   - component: {fileID: 3061304262789139553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

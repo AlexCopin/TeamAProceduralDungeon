@@ -268,12 +268,11 @@ public class Player : MonoBehaviour {
         // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
         Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
 
+        var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
         //AddByMathis
         go.GetComponent<Attack>().damages = Damage;
 
 
-        if (go.GetComponent<Projectile>())
-        var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
         if (shootContinu)
         {
             currentAttack = go;
