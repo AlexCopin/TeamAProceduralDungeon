@@ -6,21 +6,21 @@ public class Connection
 {
     public bool hasLock;
 
-    public Node firstNode;
-    public Node secondNode;
+    public Node prevNode;
+    public Node nextNode;
 
-    public Connection (Node firstNode, Node secondNode)
+    public Connection (Node prevNode, Node nextNode)
     {
-        this.firstNode = firstNode;
-        this.secondNode = secondNode;
+        this.prevNode = prevNode;
+        this.nextNode = nextNode;
 
         hasLock = false;
     }
 
-    public Connection(Node firstNode, Node secondNode, bool hasLock)
+    public Connection(Node prevNode, Node nexNode, bool hasLock)
     {
-        this.firstNode = firstNode;
-        this.secondNode = secondNode;
+        this.prevNode = prevNode;
+        this.nextNode = nexNode;
 
         this.hasLock = hasLock;
     }

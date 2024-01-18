@@ -8,6 +8,9 @@ public class DungeonGenerator : MonoBehaviour
     int m_dungeonSize = 15;
 
     [SerializeField]
+    int m_lockedRoomsNb = 3;
+
+    [SerializeField]
     RoomsPool m_pool;
 
     [SerializeField]
@@ -33,24 +36,104 @@ public class DungeonGenerator : MonoBehaviour
 
     void GenerateDungeon()
     {
-        Tree temp = new();
+        //Base Path
+        _tree = new();
+
         Node startingNode = new();
         startingNode.position = Vector2.zero;
-        //startingNode.tags.Add(RoomTag.StartRoom);
-        temp.nodes.Add(startingNode.position, startingNode);
+        startingNode.tags.Add(RoomTag.StartRoom);
+        _tree.nodes.Add(startingNode.position, startingNode);
 
         for (int i = 0; i < 4; i++)
         {
-            //Base Path
-            if (temp.GeneratePath(m_dungeonSize, startingNode.position))
+            Tree temp = new(_tree);
+
+            if (temp.GeneratePath(m_dungeonSize, startingNode.position, RoomTag.EndRoom))
             {
                 _tree = temp;
-                Debug.Log(_tree);
+                break;
+            }
+
+            if(i == 3)
+            {
+                Debug.LogError("failed generation");
                 return;
             }
         }
 
-        Debug.LogError("failed generation");
+        #region LockedRooms
+        List<Vector2> nodesPos = _tree.GetRandomNodes(m_lockedRoomsNb);
+
+        foreach (Vector2 nodePos in nodesPos)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Tree temp = new(_tree);
+
+                if (temp.GeneratePath(m_dungeonSize, nodePos, RoomTag.KeyRoom))
+                {
+                    _tree = temp;
+                    Node node = _tree.nodes[nodePos];
+                    foreach (DoorPos doors in node.doors)
+                    {
+                        bool hasFoundDoorToLock = false;
+
+                        switch (doors)
+                        {
+                            case DoorPos.Up:
+                                {
+                                    if (node.upConnection != null && node.upConnection.prevNode == node)
+                                    {
+                                        node.upConnection.hasLock = true;
+                                        hasFoundDoorToLock = true;
+                                    }
+                                    break;
+                                }
+                            case DoorPos.Right:
+                                {
+                                    if (node.rightConnection != null && node.rightConnection.prevNode == node)
+                                    {
+                                        node.rightConnection.hasLock = true;
+                                        hasFoundDoorToLock = true;
+                                    }
+                                    break;
+                                }
+                            case DoorPos.Down:
+                                {
+                                    if (node.downConnection != null && node.downConnection.prevNode == node)
+                                    {
+                                        node.downConnection.hasLock = true;
+                                        hasFoundDoorToLock = true;
+                                    }
+                                    break;
+                                }
+                            case DoorPos.Left:
+                                {
+                                    if (node.leftConnection != null && node.leftConnection.prevNode == node)
+                                    {
+                                        node.leftConnection.hasLock = true;
+                                        hasFoundDoorToLock = true;
+                                    }
+                                    break;
+                                }
+                        }
+
+                        if (hasFoundDoorToLock)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (i == 3)
+                {
+                    Debug.LogError("failed generation");
+                    return;
+                }
+            }
+        }
+        #endregion
+
     }
 
     void InstanciateDungeon()
