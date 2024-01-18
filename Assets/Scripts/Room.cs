@@ -160,6 +160,7 @@ public class Room : MonoBehaviour {
         if (isStartRoom)
         {
             Player.Instance.EnterRoom(this);
+            Player.Instance.transform.position = new Vector2(5, 5);
         }
     }
 

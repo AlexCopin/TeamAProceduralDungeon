@@ -97,7 +97,11 @@ public class Player : MonoBehaviour {
 	public Room Room { get { return _room; } }
 
 	private void Awake () {
-        Instance = this;
+        if (Instance != null)
+            Destroy(this);
+        else
+            Instance = this;
+
         _body = GetComponent<Rigidbody2D>();
         GetComponentsInChildren<SpriteRenderer>(true, _spriteRenderers);
     }
