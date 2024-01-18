@@ -356,7 +356,7 @@ MonoBehaviour:
   m_sortingLayer: 0
   m_sortingLayerName: Default
   m_orderInLayer: -10
-  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_material: {fileID: 2100000, guid: 7eca7fac62ae3c34d992d86909b5f682, type: 2}
   m_tintColor: {r: 1, g: 1, b: 1, a: 1}
   m_pixelSnap: 0
   m_isVisible: 1
