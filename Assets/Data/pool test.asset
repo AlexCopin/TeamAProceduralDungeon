@@ -137,3 +137,19 @@ MonoBehaviour:
       type: 3}
     doors: 01000000
     tags: 01000000
+  - prefab: {fileID: 4167186206395494075, guid: 6fa7062b938e62b4fade9e6572a1a13e,
+      type: 3}
+    doors: 01000000
+    tags: 02000000
+  - prefab: {fileID: 4167186206395494075, guid: 4dc13ff1050e05241b350cf0cb33f248,
+      type: 3}
+    doors: 03000000
+    tags: 02000000
+  - prefab: {fileID: 4167186206395494075, guid: 9fc7904c7e2128a45b8764d1a980903f,
+      type: 3}
+    doors: 02000000
+    tags: 02000000
+  - prefab: {fileID: 4167186206395494075, guid: 238ff2c59f75fd540a1e35be936e19bf,
+      type: 3}
+    doors: 00000000
+    tags: 02000000

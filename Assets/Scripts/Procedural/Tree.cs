@@ -14,7 +14,7 @@ public class Tree
 
     public Tree(Tree baseTree)
     {
-        nodes = baseTree.nodes;
+        nodes = new(baseTree.nodes);
     }
 
     public bool GeneratePath(int lenght, Vector2 startingNodePos, RoomTag endRoomTag)

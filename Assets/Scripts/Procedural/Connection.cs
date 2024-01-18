@@ -17,10 +17,10 @@ public class Connection
         hasLock = false;
     }
 
-    public Connection(Node prevNode, Node nexNode, bool hasLock)
+    public Connection(Node prevNode, Node nextNode, bool hasLock)
     {
         this.prevNode = prevNode;
-        this.nextNode = nexNode;
+        this.nextNode = nextNode;
 
         this.hasLock = hasLock;
     }

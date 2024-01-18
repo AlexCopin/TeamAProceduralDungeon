@@ -5,10 +5,16 @@ using UnityEngine;
 public class DungeonGenerator : MonoBehaviour
 {
     [SerializeField]
-    int m_dungeonSize = 15;
+    int m_mainDungeonSize = 15;
 
     [SerializeField]
     int m_lockedRoomsNb = 3;
+
+    [SerializeField]
+    int m_secondaryPathsSize = 3;
+
+    [SerializeField]
+    int m_tries = 20;
 
     [SerializeField]
     RoomsPool m_pool;
@@ -44,17 +50,17 @@ public class DungeonGenerator : MonoBehaviour
         startingNode.tags.Add(RoomTag.StartRoom);
         _tree.nodes.Add(startingNode.position, startingNode);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < m_tries; i++)
         {
             Tree temp = new(_tree);
 
-            if (temp.GeneratePath(m_dungeonSize, startingNode.position, RoomTag.EndRoom))
+            if (temp.GeneratePath(m_mainDungeonSize, startingNode.position, RoomTag.EndRoom))
             {
                 _tree = temp;
                 break;
             }
 
-            if(i == 3)
+            if(i == m_tries - 1)
             {
                 Debug.LogError("failed generation");
                 return;
@@ -66,11 +72,11 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach (Vector2 nodePos in nodesPos)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_tries; i++)
             {
                 Tree temp = new(_tree);
 
-                if (temp.GeneratePath(m_dungeonSize, nodePos, RoomTag.KeyRoom))
+                if (temp.GeneratePath(m_secondaryPathsSize, nodePos, RoomTag.KeyRoom))
                 {
                     _tree = temp;
                     Node node = _tree.nodes[nodePos];
@@ -123,9 +129,11 @@ public class DungeonGenerator : MonoBehaviour
                             break;
                         }
                     }
+
+                    break;
                 }
 
-                if (i == 3)
+                if (i == m_tries - 1)
                 {
                     Debug.LogError("failed generation");
                     return;
