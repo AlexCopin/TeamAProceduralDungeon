@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Item_Manager : MonoBehaviour
 {
+
+    public static Item_Manager Instance = null;
+
     public Item_Stats[] Item;
     public Button[] Slot;
     private Item_Stats ItemStats;
@@ -25,11 +28,12 @@ public class Item_Manager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
-        
-
+        if(Instance != null)
+            Destroy(this);
+        else
+            Instance = this;
     }
 
     // Update is called once per frame
@@ -37,32 +41,47 @@ public class Item_Manager : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Space");
-            if(ItemSelector.gameObject.activeInHierarchy)
-            {
-                ItemSelector.RandomChoice(false);
-            }
-            if (!ItemSelector.gameObject.activeInHierarchy)
-            {
-                ItemSelector.gameObject.SetActive(true);
-                ItemSelector.RandomChoice(false);
-                Time.timeScale = 0;
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Debug.Log("Space");
+        //    if(ItemSelector.gameObject.activeInHierarchy)
+        //    {
+        //        ItemSelector.RandomChoice(false);
+        //    }
+        //    if (!ItemSelector.gameObject.activeInHierarchy)
+        //    {
+        //        ItemSelector.gameObject.SetActive(true);
+        //        ItemSelector.RandomChoice(false);
+        //        Time.timeScale = 0;
 
-            }
+        //    }
+
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    Player.attackPrefab = Projectile;
+        //}
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    Player.attackPrefab = Playerattack;
+        //}
+
+    }
+
+    public void ActivateItemSelector()
+    {
+        if (ItemSelector.gameObject.activeInHierarchy)
+        {
+            ItemSelector.RandomChoice(false);
+        }
+        if (!ItemSelector.gameObject.activeInHierarchy)
+        {
+            ItemSelector.gameObject.SetActive(true);
+            ItemSelector.RandomChoice(false);
+            Time.timeScale = 0;
 
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Player.attackPrefab = Projectile;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Player.attackPrefab = Playerattack;
-        }
-
     }
 
     void UpdateItem(int slot)

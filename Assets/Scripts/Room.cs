@@ -30,6 +30,8 @@ public class Room : MonoBehaviour {
 
     public event Notify OnRoomEntered;
 
+
+
     /// <summary>
     /// Get a list of all doors in a room. Do not use at Awake.
     /// </summary>
@@ -153,6 +155,8 @@ public class Room : MonoBehaviour {
 	void Start()
 	{
 		RefreshDoors();
+
+        OnRoomEntered += Item_Manager.Instance.ActivateItemSelector;
         if (isStartRoom)
         {
             Player.Instance.EnterRoom(this);
