@@ -29,10 +29,6 @@ MonoBehaviour:
       type: 3}
     doors: 01000000
     tags: 00000000
-  - prefab: {fileID: 4167186206395494075, guid: db20aeb84b628734994f81a482646e0c,
-      type: 3}
-    doors: 01000000
-    tags: 
   - prefab: {fileID: 4167186206395494075, guid: 9a7d563035ab9cd4687a5d5cbfa19cbe,
       type: 3}
     doors: 0100000002000000
@@ -153,3 +149,51 @@ MonoBehaviour:
       type: 3}
     doors: 00000000
     tags: 02000000
+  - prefab: {fileID: 4167186206395494075, guid: c670cb95bac8a694a8010aee1e4cf20b,
+      type: 3}
+    doors: 0100000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 5097908a8fe168c40b7139d32ab711b6,
+      type: 3}
+    doors: 0100000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 9a1e24faba8139f40a32b1555e8506e5,
+      type: 3}
+    doors: 0000000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: d1163e79b0903dd48a59a386bb817dc9,
+      type: 3}
+    doors: 0000000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 4a7b92db0f6f2974b9a0d016f140230c,
+      type: 3}
+    doors: 0300000001000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 205304c4c106f3e4c8c636f9eef31164,
+      type: 3}
+    doors: 0300000001000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: bfb08e7b70763224f9a52ffd9d9e364e,
+      type: 3}
+    doors: 0300000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 477cd9bd285b5e1469c051876f5c1d92,
+      type: 3}
+    doors: 0300000002000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 74386a7c612fc7a499433c205729cb0b,
+      type: 3}
+    doors: 0300000000000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 87c065e21c1b3bd4b99e38d42860b01e,
+      type: 3}
+    doors: 0300000000000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: 204dbec76d9bdcd44a8f7b4e7f821889,
+      type: 3}
+    doors: 0100000000000000
+    tags: 
+  - prefab: {fileID: 4167186206395494075, guid: a13f02d5e11f8fc48bd22990028c260e,
+      type: 3}
+    doors: 0100000000000000
+    tags: 
