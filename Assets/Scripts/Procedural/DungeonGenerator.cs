@@ -21,7 +21,10 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField]
     List<DungeonLevel> m_levels;
 
-
+    [SerializeField]
+    TilesetSwapper Swapper;
+    [SerializeField]
+    List<string> TilesetIds;
     Tree _tree;
 
     int _curLevelIndex = 0;
@@ -226,7 +229,7 @@ public class DungeonGenerator : MonoBehaviour
             Debug.LogError("No next level to load");
             return;
         }
-
+        Swapper.SetVariation(TilesetIds[_curLevelIndex]);
         DeleteDungeon();
         CreateLevel(_curLevelIndex);
     }

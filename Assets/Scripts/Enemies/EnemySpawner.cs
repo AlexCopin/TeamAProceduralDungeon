@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
                 _room = room;
             }
         }
-        _room.OnRoomEntered += OnRoomActivation;
+        //_room.OnRoomEntered += OnRoomActivation;
         //Apply difficulty for number of enemies
         ApplyDifficulty(_difficulty);
     }
