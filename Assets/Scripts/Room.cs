@@ -1,4 +1,5 @@
 ﻿using CreativeSpore.SuperTilemapEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -8,20 +9,26 @@ using UnityEngine;
 /// Represents a single room in your dungeon
 /// A room has an (i,j) integer position and a (di, dj) integer size in index coordinates
 /// </summary>
-public class Room : MonoBehaviour
-{
+/// 
+public delegate void Notify();
+
+public class Room : MonoBehaviour {
 
     public bool isStartRoom = false;
 
     // Position of the room in index coordinates. Coordinates {0,0} are the coordinates of the central room. Room {1,0} is on the right side of room {0,0}.
-    public Vector2Int position = Vector2Int.zero;
+	public Vector2Int position = Vector2Int.zero;
     // Size of the room in index coordinates. By default : {1,1}.
     public Vector2Int size = Vector2Int.one;
 
     private TilemapGroup _tilemapGroup;
-    private List<Door> doors = null;
+	private List<Door> doors = null;
     private bool _isInitialized = false;
     public static List<Room> allRooms { get; private set; } = new List<Room>();
+
+    bool _alreadyEntered;
+
+    public event Notify OnRoomEntered;
 
 
     /// <summary>
@@ -110,6 +117,10 @@ public class Room : MonoBehaviour
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = GetWorldBounds();
         cameraFollow.SetBounds(cameraBounds);
+        if(!_alreadyEntered)
+            OnRoomEntered?.Invoke();
+
+        _alreadyEntered = true;
     }
 
     /// <summary>
@@ -157,28 +168,28 @@ public class Room : MonoBehaviour
 
     void Awake()
     {
-        allRooms.Add(this);
-        Initialize();
-    }
+		allRooms.Add(this);
+		Initialize();
+	}
 
-    void Start()
-    {
-        RefreshDoors();
+	void Start()
+	{
+		RefreshDoors();
+
+        OnRoomEntered += Item_Manager.Instance.ActivateItemSelector;
         if (isStartRoom)
         {
             Player.Instance.EnterRoom(this);
+            Player.Instance.transform.position = new Vector2(5, 5);
         }
     }
 
-    private void RefreshDoors()
-    {
-        if (doors == null)
-        {
+	private void RefreshDoors()
+	{
+		if(doors == null) {
             doors = new List<Door>();
-        }
-        else
-        {
-            doors.Clear();
+        } else {
+			doors.Clear();
         }
         GetComponentsInChildren<Door>(true, doors);
     }
@@ -194,32 +205,32 @@ public class Room : MonoBehaviour
         Vector2Int offset = Vector2Int.zero;
         Bounds bounds = GetWorldBounds();
         Vector3 localPoint = worldPoint - bounds.min;
-        if (size.x > 1)
+        if(size.x > 1)
         {
-            offset.x = Mathf.Clamp((int)(localPoint.x / (bounds.size.x / size.x)), 0, size.x - 1);
+            offset.x = Mathf.Clamp((int)(localPoint.x / (bounds.size.x / size.x)), 0, size.x-1);
         }
         if (size.y > 1)
         {
-            offset.y = Mathf.Clamp((int)(localPoint.y / (bounds.size.y / size.y)), 0, size.y - 1);
+            offset.y = Mathf.Clamp((int)(localPoint.y / (bounds.size.y / size.y)), 0, size.y-1);
         }
         return offset;
     }
 
     private void Initialize()
     {
-        if (_isInitialized)
-            return;
-        _tilemapGroup = GetComponentInChildren<TilemapGroup>();
-        foreach (STETilemap tilemap in _tilemapGroup.Tilemaps)
-        {
-            tilemap.RecalculateMapBounds();
-        }
-        _isInitialized = true;
-    }
+		if (_isInitialized)
+			return;
+		_tilemapGroup = GetComponentInChildren<TilemapGroup>();
+		foreach (STETilemap tilemap in _tilemapGroup.Tilemaps)
+		{
+			tilemap.RecalculateMapBounds();
+		}
+		_isInitialized = true;
+	}
 
-    private void OnDestroy()
-    {
-        allRooms.Remove(this);
-    }
+	private void OnDestroy()
+	{
+		allRooms.Remove(this);
+	}
     #endregion Internal 
 }

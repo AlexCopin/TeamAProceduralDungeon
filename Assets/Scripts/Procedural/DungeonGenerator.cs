@@ -42,6 +42,7 @@ public class DungeonGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            DeleteDungeon();
             GenerateDungeon();
             InstanciateDungeon();
         }
@@ -77,6 +78,7 @@ public class DungeonGenerator : MonoBehaviour
             if(i == m_tries - 1)
             {
                 Debug.LogError("failed generation");
+                DeleteDungeon();
                 return;
             }
         }
@@ -150,6 +152,7 @@ public class DungeonGenerator : MonoBehaviour
                 if (i == m_tries - 1)
                 {
                     Debug.LogError("failed generation");
+                    DeleteDungeon();
                     return;
                 }
             }
@@ -170,6 +173,7 @@ public class DungeonGenerator : MonoBehaviour
             if(objectToInstantiate == null)
             {
                 Debug.LogError("NoFittingRoomFound");
+                DeleteDungeon();
                 return;
             }
             Debug.Log("passed");
@@ -236,10 +240,9 @@ public class DungeonGenerator : MonoBehaviour
 
     public void DeleteDungeon()
     {
-        int childNb = transform.childCount;
-        for(int i = 0; i < childNb; i++)
+        foreach(Transform child in transform)
         {
-            Destroy(transform.GetChild(0));
+            Destroy(child.gameObject);
         }
     }
 
