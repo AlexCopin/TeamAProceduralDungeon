@@ -190,7 +190,7 @@ public class DungeonGenerator : MonoBehaviour
                             {
                                 if(nodeValue.upConnection != null && nodeValue.upConnection.hasLock)
                                 {
-                                    roomScript.GetDoor(Utils.ORIENTATION.NORTH).SetState(Door.STATE.CLOSED);
+                                    roomScript.GetDoor(Utils.ORIENTATION.NORTH, node.Key * m_tileSize).SetState(Door.STATE.CLOSED);
                                 }
                                 break;
                             }
@@ -198,7 +198,7 @@ public class DungeonGenerator : MonoBehaviour
                             {
                                 if (nodeValue.rightConnection != null && nodeValue.rightConnection.hasLock)
                                 {
-                                    roomScript.GetDoor(Utils.ORIENTATION.EAST).SetState(Door.STATE.CLOSED);
+                                    roomScript.GetDoor(Utils.ORIENTATION.EAST, node.Key * m_tileSize).SetState(Door.STATE.CLOSED);
                                 }
                                 break;
                             }
@@ -206,7 +206,7 @@ public class DungeonGenerator : MonoBehaviour
                             {
                                 if (nodeValue.downConnection != null && nodeValue.downConnection.hasLock)
                                 {
-                                    roomScript.GetDoor(Utils.ORIENTATION.SOUTH).SetState(Door.STATE.CLOSED);
+                                    roomScript.GetDoor(Utils.ORIENTATION.SOUTH, node.Key * m_tileSize).SetState(Door.STATE.CLOSED);
                                 }
                                 break;
                             }
@@ -214,7 +214,7 @@ public class DungeonGenerator : MonoBehaviour
                             {
                                 if (nodeValue.leftConnection != null && nodeValue.leftConnection.hasLock)
                                 {
-                                    roomScript.GetDoor(Utils.ORIENTATION.WEST).SetState(Door.STATE.CLOSED);
+                                    roomScript.GetDoor(Utils.ORIENTATION.WEST, node.Key * m_tileSize).SetState(Door.STATE.CLOSED);
                                 }
                                 break;
                             }
