@@ -228,14 +228,15 @@ public class DungeonGenerator : MonoBehaviour
     public void SetNextLevel()
     {
         _curLevelIndex += 1;
-        if(_curLevelIndex >= m_levels.Count)
+        Debug.Log("SetNextLevel" + _curLevelIndex);
+        if (_curLevelIndex >= m_levels.Count)
         {
             Debug.LogError("No next level to load");
             return;
         }
-        Swapper.SetVariation(TilesetIds[_curLevelIndex]);
         DeleteDungeon();
         CreateLevel(_curLevelIndex);
+        Swapper.SetVariation(TilesetIds[_curLevelIndex]);
     }
 
     public void DeleteDungeon()
