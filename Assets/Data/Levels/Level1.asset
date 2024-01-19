@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1799578634fd964478e45ec95114e9cb, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  m_mainDungeonSize: 15
-  m_lockedRoomsNb: 3
-  m_secondaryPathsSize: 3
+  mainDungeonSize: 50
+  lockedRoomsNb: 3
+  secondaryPathsSize: 5

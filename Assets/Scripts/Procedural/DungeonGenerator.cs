@@ -182,6 +182,7 @@ public class DungeonGenerator : MonoBehaviour
             #region Set locks
             if (room.TryGetComponent(out Room roomScript))
             {
+                roomScript.position = new Vector2Int((int)node.Key.x, (int)node.Key.y);
                 foreach(DoorPos door in nodeValue.doors)
                 {
                     switch (door)

@@ -25,10 +25,6 @@ MonoBehaviour:
       type: 3}
     doors: 03000000
     tags: 00000000
-  - prefab: {fileID: 4167186206395494075, guid: 9083128873f15f6429be25ea258a2d3a,
-      type: 3}
-    doors: 01000000
-    tags: 00000000
   - prefab: {fileID: 4167186206395494075, guid: 9a7d563035ab9cd4687a5d5cbfa19cbe,
       type: 3}
     doors: 0100000002000000
