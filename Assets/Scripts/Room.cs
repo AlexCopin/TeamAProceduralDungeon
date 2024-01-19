@@ -1,5 +1,4 @@
 ﻿using CreativeSpore.SuperTilemapEditor;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -9,27 +8,20 @@ using UnityEngine;
 /// Represents a single room in your dungeon
 /// A room has an (i,j) integer position and a (di, dj) integer size in index coordinates
 /// </summary>
-/// 
-public delegate void Notify();
-
-public class Room : MonoBehaviour {
+public class Room : MonoBehaviour
+{
 
     public bool isStartRoom = false;
 
     // Position of the room in index coordinates. Coordinates {0,0} are the coordinates of the central room. Room {1,0} is on the right side of room {0,0}.
-	public Vector2Int position = Vector2Int.zero;
+    public Vector2Int position = Vector2Int.zero;
     // Size of the room in index coordinates. By default : {1,1}.
     public Vector2Int size = Vector2Int.one;
 
     private TilemapGroup _tilemapGroup;
-	private List<Door> doors = null;
+    private List<Door> doors = null;
     private bool _isInitialized = false;
     public static List<Room> allRooms { get; private set; } = new List<Room>();
-
-    bool _alreadyEntered;
-
-    public event Notify OnRoomEntered;
-
 
 
     /// <summary>
@@ -37,10 +29,22 @@ public class Room : MonoBehaviour {
     /// </summary>
     public List<Door> GetDoors()
     {
-        if (doors == null) {
+        if (doors == null)
+        {
             RefreshDoors();
         }
         return doors;
+    }
+
+    /// <summary>
+    /// Get a list of all doors in a room with a given local offset in index coordinate for room with size greater than one.
+    /// </summary>
+    public List<Door> GetDoors(Vector2Int offset)
+    {
+        Vector2Int doorPosition = position + offset;
+        List<Door> doorsSubset = new List<Door>(GetDoors());
+        doorsSubset.RemoveAll(x => doorPosition != position + GetPositionOffset(x.transform.position));
+        return doorsSubset;
     }
 
     /// <summary>
@@ -106,10 +110,6 @@ public class Room : MonoBehaviour {
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = GetWorldBounds();
         cameraFollow.SetBounds(cameraBounds);
-        if(!_alreadyEntered)
-            OnRoomEntered?.Invoke();
-
-        _alreadyEntered = true;
     }
 
     /// <summary>
@@ -132,44 +132,53 @@ public class Room : MonoBehaviour {
     /// </summary>
     public Door GetDoor(Utils.ORIENTATION orientation, Vector3 from)
     {
-        Vector2Int doorPosition = position + GetPositionOffset(from);
-        List<Door> doors = GetDoors();
-        foreach(Door door in doors)
-        {
-            if (doorPosition == position + GetPositionOffset(door.transform.position)
-                && door.Orientation == orientation)
-            {
-                return door;
-            }
-        }
-        return null;
+        return GetDoor(orientation, GetPositionOffset(from));
+    }
+
+    /// <summary>
+    /// Get door for given orientation (North, south, east or west) for room with size of one by one.
+    /// </summary>
+    public Door GetDoor(Utils.ORIENTATION orientation)
+    {
+        Debug.Assert(size == Vector2Int.one, "GetDoor(orientation) should only be used on room of size {1,1}. In other cases, please use: GetDoor(orientation,offset)");
+        return GetDoor(orientation, Vector2Int.zero);
+    }
+
+    /// <summary>
+    /// Get door for given orientation (North, south, east or west) and a given local offset in index coordinate for room with size greater than one.
+    /// </summary>
+    public Door GetDoor(Utils.ORIENTATION orientation, Vector2Int offset)
+    {
+        Vector2Int doorPosition = position + offset;
+        List<Door> doors = GetDoors(offset);
+        return doors.Find(x => x.Orientation == orientation);
     }
     #region Internal 
 
     void Awake()
     {
-		allRooms.Add(this);
-		Initialize();
-	}
+        allRooms.Add(this);
+        Initialize();
+    }
 
-	void Start()
-	{
-		RefreshDoors();
-
-        OnRoomEntered += Item_Manager.Instance.ActivateItemSelector;
+    void Start()
+    {
+        RefreshDoors();
         if (isStartRoom)
         {
             Player.Instance.EnterRoom(this);
-            Player.Instance.transform.position = new Vector2(5, 5);
         }
     }
 
-	private void RefreshDoors()
-	{
-		if(doors == null) {
+    private void RefreshDoors()
+    {
+        if (doors == null)
+        {
             doors = new List<Door>();
-        } else {
-			doors.Clear();
+        }
+        else
+        {
+            doors.Clear();
         }
         GetComponentsInChildren<Door>(true, doors);
     }
@@ -185,32 +194,32 @@ public class Room : MonoBehaviour {
         Vector2Int offset = Vector2Int.zero;
         Bounds bounds = GetWorldBounds();
         Vector3 localPoint = worldPoint - bounds.min;
-        if(size.x > 1)
+        if (size.x > 1)
         {
-            offset.x = Mathf.Clamp((int)(localPoint.x / (bounds.size.x / size.x)), 0, size.x-1);
+            offset.x = Mathf.Clamp((int)(localPoint.x / (bounds.size.x / size.x)), 0, size.x - 1);
         }
         if (size.y > 1)
         {
-            offset.y = Mathf.Clamp((int)(localPoint.y / (bounds.size.y / size.y)), 0, size.y-1);
+            offset.y = Mathf.Clamp((int)(localPoint.y / (bounds.size.y / size.y)), 0, size.y - 1);
         }
         return offset;
     }
 
     private void Initialize()
     {
-		if (_isInitialized)
-			return;
-		_tilemapGroup = GetComponentInChildren<TilemapGroup>();
-		foreach (STETilemap tilemap in _tilemapGroup.Tilemaps)
-		{
-			tilemap.RecalculateMapBounds();
-		}
-		_isInitialized = true;
-	}
+        if (_isInitialized)
+            return;
+        _tilemapGroup = GetComponentInChildren<TilemapGroup>();
+        foreach (STETilemap tilemap in _tilemapGroup.Tilemaps)
+        {
+            tilemap.RecalculateMapBounds();
+        }
+        _isInitialized = true;
+    }
 
-	private void OnDestroy()
-	{
-		allRooms.Remove(this);
-	}
+    private void OnDestroy()
+    {
+        allRooms.Remove(this);
+    }
     #endregion Internal 
 }

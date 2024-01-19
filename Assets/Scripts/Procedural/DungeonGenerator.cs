@@ -6,29 +6,33 @@ public class DungeonGenerator : MonoBehaviour
 {
     [SerializeField]
     int m_mainDungeonSize = 15;
-
     [SerializeField]
     int m_lockedRoomsNb = 3;
-
     [SerializeField]
     int m_secondaryPathsSize = 3;
 
     [SerializeField]
     int m_tries = 20;
-
-    [SerializeField]
-    RoomsPool m_pool;
-
     [SerializeField]
     Vector2 m_tileSize = Vector2.zero;
 
+    [SerializeField]
+    RoomsPool m_pool;
+    [SerializeField]
+    List<DungeonLevel> m_levels;
+
+
     Tree _tree;
+
+    int _curLevelIndex = 0;
 
     private void Start()
     {
         GameObject temp = Instantiate(m_pool.rooms[0].prefab);
         m_tileSize = temp.GetComponent<Room>().GetWorldBounds().size;
         Destroy(temp);
+
+        CreateLevel(_curLevelIndex);
     }
 
     void Update()
@@ -38,6 +42,13 @@ public class DungeonGenerator : MonoBehaviour
             GenerateDungeon();
             InstanciateDungeon();
         }
+    }
+
+    void CreateLevel(int index)
+    {
+        SetLevelData(m_levels[index]);
+        GenerateDungeon();
+        InstanciateDungeon();
     }
 
     void GenerateDungeon()
@@ -150,7 +161,8 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach(KeyValuePair< Vector2, Node > node in _tree.nodes)
         {
-            GameObject objectToInstantiate = GetPrefabOfType(node.Value, prevRoom);
+            Node nodeValue = node.Value;
+            GameObject objectToInstantiate = GetPrefabOfType(nodeValue, prevRoom);
             prevRoom = objectToInstantiate;
             if(objectToInstantiate == null)
             {
@@ -158,15 +170,89 @@ public class DungeonGenerator : MonoBehaviour
                 return;
             }
             Debug.Log("passed");
-            Instantiate(objectToInstantiate, node.Key * m_tileSize, objectToInstantiate.transform.rotation, transform);
+            GameObject room = Instantiate(objectToInstantiate, node.Key * m_tileSize, objectToInstantiate.transform.rotation, transform);
+
+            #region Set locks
+            if (room.TryGetComponent(out Room roomScript))
+            {
+                foreach(DoorPos door in nodeValue.doors)
+                {
+                    switch (door)
+                    {
+                        case DoorPos.Up :
+                            {
+                                if(nodeValue.upConnection != null && nodeValue.upConnection.hasLock)
+                                {
+                                    roomScript.GetDoor(Utils.ORIENTATION.NORTH).SetState(Door.STATE.CLOSED);
+                                }
+                                break;
+                            }
+                        case DoorPos.Right:
+                            {
+                                if (nodeValue.rightConnection != null && nodeValue.rightConnection.hasLock)
+                                {
+                                    roomScript.GetDoor(Utils.ORIENTATION.EAST).SetState(Door.STATE.CLOSED);
+                                }
+                                break;
+                            }
+                        case DoorPos.Down:
+                            {
+                                if (nodeValue.downConnection != null && nodeValue.downConnection.hasLock)
+                                {
+                                    roomScript.GetDoor(Utils.ORIENTATION.SOUTH).SetState(Door.STATE.CLOSED);
+                                }
+                                break;
+                            }
+                        case DoorPos.Left:
+                            {
+                                if (nodeValue.leftConnection != null && nodeValue.leftConnection.hasLock)
+                                {
+                                    roomScript.GetDoor(Utils.ORIENTATION.WEST).SetState(Door.STATE.CLOSED);
+                                }
+                                break;
+                            }
+                    }
+                }
+            }
+            #endregion
         }
+    }
+
+    public void SetNextLevel()
+    {
+        _curLevelIndex += 1;
+        if(_curLevelIndex >= m_levels.Count)
+        {
+            Debug.LogError("No next level to load");
+            return;
+        }
+
+        DeleteDungeon();
+        CreateLevel(_curLevelIndex);
+    }
+
+    public void DeleteDungeon()
+    {
+        int childNb = transform.childCount;
+        for(int i = 0; i < childNb; i++)
+        {
+            Destroy(transform.GetChild(0));
+        }
+    }
+
+    void SetLevelData(DungeonLevel level)
+    {
+        m_mainDungeonSize = level.mainDungeonSize;
+        m_lockedRoomsNb = level.lockedRoomsNb;
+        m_secondaryPathsSize = level.secondaryPathsSize;
     }
 
     GameObject GetPrefabOfType(Node node, GameObject prevRoom)
     {
         List<PoolRoom> validRooms = new(m_pool.rooms);
 
-        foreach(RoomTag tag in node.tags)
+        #region Tags
+        foreach (RoomTag tag in node.tags)
         {
             List<PoolRoom> temp = new(validRooms);
 
@@ -178,8 +264,10 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
+        #endregion
 
-        foreach(DoorPos pos in node.doors)
+        #region Doors
+        foreach (DoorPos pos in node.doors)
         {
             List<PoolRoom> temp = new(validRooms);
 
@@ -199,7 +287,9 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
+        #endregion
 
+        #region Room Select
         switch (validRooms.Count)
         {
             case 0:
@@ -231,5 +321,6 @@ public class DungeonGenerator : MonoBehaviour
                     return validRooms[index].prefab;
                 }
         }
+        #endregion
     }
 }
