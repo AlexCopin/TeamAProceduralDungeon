@@ -31,27 +31,16 @@ public class Room : MonoBehaviour {
     public event Notify OnRoomEntered;
 
 
+
     /// <summary>
     /// Get a list of all doors in a room. Do not use at Awake.
     /// </summary>
     public List<Door> GetDoors()
     {
-        if (doors == null)
-        {
+        if (doors == null) {
             RefreshDoors();
         }
         return doors;
-    }
-
-    /// <summary>
-    /// Get a list of all doors in a room with a given local offset in index coordinate for room with size greater than one.
-    /// </summary>
-    public List<Door> GetDoors(Vector2Int offset)
-    {
-        Vector2Int doorPosition = position + offset;
-        List<Door> doorsSubset = new List<Door>(GetDoors());
-        doorsSubset.RemoveAll(x => doorPosition != position + GetPositionOffset(x.transform.position));
-        return doorsSubset;
     }
 
     /// <summary>
@@ -143,26 +132,17 @@ public class Room : MonoBehaviour {
     /// </summary>
     public Door GetDoor(Utils.ORIENTATION orientation, Vector3 from)
     {
-        return GetDoor(orientation, GetPositionOffset(from));
-    }
-
-    /// <summary>
-    /// Get door for given orientation (North, south, east or west) for room with size of one by one.
-    /// </summary>
-    public Door GetDoor(Utils.ORIENTATION orientation)
-    {
-        Debug.Assert(size == Vector2Int.one, "GetDoor(orientation) should only be used on room of size {1,1}. In other cases, please use: GetDoor(orientation,offset)");
-        return GetDoor(orientation, Vector2Int.zero);
-    }
-
-    /// <summary>
-    /// Get door for given orientation (North, south, east or west) and a given local offset in index coordinate for room with size greater than one.
-    /// </summary>
-    public Door GetDoor(Utils.ORIENTATION orientation, Vector2Int offset)
-    {
-        Vector2Int doorPosition = position + offset;
-        List<Door> doors = GetDoors(offset);
-        return doors.Find(x => x.Orientation == orientation);
+        Vector2Int doorPosition = position + GetPositionOffset(from);
+        List<Door> doors = GetDoors();
+        foreach(Door door in doors)
+        {
+            if (doorPosition == position + GetPositionOffset(door.transform.position)
+                && door.Orientation == orientation)
+            {
+                return door;
+            }
+        }
+        return null;
     }
     #region Internal 
 
