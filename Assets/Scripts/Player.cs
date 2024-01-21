@@ -258,7 +258,10 @@ public class Player : MonoBehaviour {
     }
     private void ReleaseAttack()
     {
-        currentAttack.GetComponent<ParticleSystem>().Stop();
+        if (currentAttack.GetComponent<ParticleSystem>())
+        {
+            currentAttack.GetComponent<ParticleSystem>().Stop();
+        }
     }
 
     /// <summary>
@@ -269,19 +272,18 @@ public class Player : MonoBehaviour {
         if (attackPrefab == null)
             return;
 
-        // transform used for spawn is attackSpawnPoint.transform if attackSpawnPoint is not null. Else it's transform.
-        Transform spawnTransform = attackSpawnPoint ? attackSpawnPoint.transform : transform;
-
-        var go = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
-        //AddByMathis
-        go.GetComponent<Attack>().damages = Damage;
-
 
         if (shootContinu)
         {
-            currentAttack = go;
+            currentAttack = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform);
         }
-        go.layer = LayerMask.NameToLayer("PlayerAttack");
+        else
+        {
+            currentAttack = GameObject.Instantiate(attackPrefab, attackSpawnPoint.transform.position, attackSpawnPoint.transform.rotation);
+        }
+        currentAttack.GetComponent<Attack>().damages = Damage;
+        currentAttack.layer = LayerMask.NameToLayer("PlayerAttack");
+        //AddByMathis
     }
 
     /// <summary>
