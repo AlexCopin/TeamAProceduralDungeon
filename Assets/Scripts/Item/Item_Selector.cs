@@ -29,7 +29,8 @@ public class Item_Selector : MonoBehaviour
     }
     public void RandomChoice(bool Artefact)
     {
-        
+        Debug.Log("RandomChoice");
+
         int random = Random.Range(0, ListItems.Length);
         Item1 = ListItems[random];
         
